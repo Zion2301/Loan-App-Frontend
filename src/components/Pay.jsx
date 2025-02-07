@@ -15,9 +15,9 @@ const Pay = () => {
              <img src={img} alt="" className="another-logo"/>
                         <div className="inner-left-div">
                         <div className="dash-links">
-                           <Link className="ordinary"><IoSpeedometer/> Overview</Link>
-                           <Link className="ordinary"><FaMoneyBill1Wave/> Apply Loan</Link>
-                           <Link className="ordinary"><BsFillCreditCard2FrontFill/> Payment Details</Link>
+                           <Link className="ordinary" to="/dashboard"><IoSpeedometer/> Overview</Link>
+                           <Link className="ordinary" to="/loan"><FaMoneyBill1Wave/> Apply Loan</Link>
+                           <Link className="ordinary" to="payment"><BsFillCreditCard2FrontFill/> Payment Details</Link>
                            <Link className="special"><TbCreditCardPay/> Pay</Link>
                         </div>
             

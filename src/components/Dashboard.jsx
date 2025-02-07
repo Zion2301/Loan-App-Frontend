@@ -40,9 +40,9 @@ const Dashboard = ({loans = []}) => {
             <div className="inner-left-div">
             <div className="dash-links">
                <Link className="special"><IoSpeedometer/> Overview</Link>
-               <Link className="ordinary"><FaMoneyBill1Wave/> Apply Loan</Link>
-               <Link className="ordinary"><BsFillCreditCard2FrontFill/> Payment Details</Link>
-               <Link className="ordinary"><TbCreditCardPay/> Pay</Link>
+               <Link className="ordinary" to="/loan"><FaMoneyBill1Wave/> Apply Loan</Link>
+               <Link className="ordinary" to="/payment"><BsFillCreditCard2FrontFill/> Payment Details</Link>
+               <Link className="ordinary" to="/paydash"><TbCreditCardPay/> Pay</Link>
             </div>
 
             <div className="lower-links">

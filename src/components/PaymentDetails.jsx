@@ -98,10 +98,10 @@ const PaymentDetails = () => {
           <img src={img} alt="" className="another-logo" />
           <div className="inner-left-div">
             <div className="dash-links">
-              <Link className="ordinary"><IoSpeedometer /> Overview</Link>
-              <Link className="ordinary"><FaMoneyBill1Wave /> Apply Loan</Link>
+              <Link className="ordinary" to="/dashboard"><IoSpeedometer /> Overview</Link>
+              <Link className="ordinary" to="/loan"><FaMoneyBill1Wave /> Apply Loan</Link>
               <Link className="special"><BsFillCreditCard2FrontFill /> Payment Details</Link>
-              <Link className="ordinary"><TbCreditCardPay /> Pay</Link>
+              <Link className="ordinary" to="/paydash"><TbCreditCardPay /> Pay</Link>
             </div>
 
             <div className="lower-links">
