@@ -1,0 +1,136 @@
+.banner-img {
+    background-image: url("../assets/banner.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 700px;
+    background-position: center;
+}
+
+.inner-div {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.642);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+}
+
+.need {
+    color: white;
+    padding-left: 150px;
+    padding-top: 170px;
+    font-size: 38px;
+    font-weight: 400;
+}
+
+.part {
+    font-size: 25px;
+    font-weight: bold;
+    color: rgb(189, 189, 189);
+}
+
+.calculate {
+    width: 900px;
+    padding-left: 150px;    
+}
+
+.easiest {
+    height: 400px;
+    background-color: #1c2331;
+   position: relative;
+}
+
+.inner-blue {
+    width: 100%;
+    height: 100%;
+    background-image: url("../assets/lines.png");
+    background-repeat: no-repeat;
+    background-position: right;
+    position: absolute;
+    z-index: 3000;
+    padding-left: 150px;
+    display: flex;
+    padding-top: 80px;
+    justify-content: space-between;
+    gap: 500px;
+    align-items: center;
+}
+
+.left-div {
+    width: 50%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.way {
+    font-weight: 400;
+    font-size: 60px;
+}
+
+.loan {
+    color: #00c851;
+}
+
+.text {
+    font-size: 15px;
+}
+
+.right-div {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.person {
+    font-size: 40px;
+    color: grey;
+}
+
+.number {
+    font-size: 30px;
+    color: white;
+}
+
+.customers {
+    color: white;
+}
+
+.new-section {
+    width: 100%;
+    padding-left: 150px;
+    display: flex;
+    padding-right: 150px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    align-items: center;
+    gap: 30px;
+}
+
+.each-lil-div {
+    width: 33.3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+}
+
+.more {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.coll {
+    font-size: 50px;
+    color: #6c757d;
+}
+
+.collateral {
+    border-bottom: 1px solid grey;
+    padding-bottom: 10px;
+}

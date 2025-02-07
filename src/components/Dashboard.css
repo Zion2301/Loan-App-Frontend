@@ -1,0 +1,90 @@
+.main-dashboard {
+    width: 100%;
+    display: flex;
+    background-color: rgb(241, 241, 241);
+}
+
+.left-dash {
+    width: 20%;
+    background-color: white;
+    height: 100vh;
+}
+
+.another-logo {
+    width: 300px;
+}
+
+.dash-links {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-left: 78px;
+    gap: 25px;
+    /* justify-content: center; */
+}
+
+.special {
+    color: #28a745;
+    text-decoration: none;
+    font-size: 20px;
+    background-color: #28a7463c;
+    padding: 15px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.ordinary {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
+
+.lower-links {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-left: 78px;
+    gap: 20px;
+}
+
+.inner-left-div {
+    display: flex;
+    flex-direction: column;
+    gap: 250px;
+}
+
+.right-dash {
+    width: 80%;
+    padding: 40px;
+}
+
+.date {
+    font-size: 13px;
+    color: rgb(48, 48, 48);
+}
+
+.date-div {
+    display: flex;
+    gap: 20px;
+}
+
+.alert {
+    font-size: 25px;
+}
+
+.welcome {
+    font-size: 19px;
+}
+
+.acc-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.acc-date {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    justify-content: right;
+}
