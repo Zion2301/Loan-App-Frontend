@@ -7,7 +7,8 @@
 .left-dash {
     width: 20%;
     background-color: white;
-    height: 100vh;
+    height: 120vh;
+    position: fixed;
 }
 
 .another-logo {
@@ -56,6 +57,7 @@
 .right-dash {
     width: 80%;
     padding: 40px;
+    margin-left: 320px;
 }
 
 .date {
@@ -88,3 +90,124 @@
     gap: 34px;
     justify-content: right;
 }
+
+.chart-div {
+    background-color: #28a7463d;
+    width: 50%;
+    padding: 15px;
+}
+
+.zee {
+    padding-top: 30px;
+}
+
+.current {
+    color: rgb(65, 65, 65);
+}
+
+.amount {
+    font-weight: 400;
+    padding-top: 20px;
+}
+
+.paid-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.second-chart-div {
+    width: 50%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.idk-div {
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+.little {   
+    height: 240px;
+    background-color: #28a7463d;
+    padding: 15px;
+}
+
+.pretty {
+    color: black;
+    text-decoration: none;
+}
+
+/* LoanTable.css */
+
+.table-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .loan-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  
+  .loan-table thead {
+    color: black;
+    font-weight: bold;
+  }
+  
+  .loan-table th, .loan-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .loan-table tbody tr:hover {
+    background: #f1f1f1;
+  }
+  
+  .loan-table th {
+    text-transform: uppercase;
+  }
+  
+  .status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .status.active {
+    background: #28a745;
+    color: white;
+  }
+  
+  .status.paid {
+    background: #17a2b8;
+    color: white;
+  }
+  
+  .status.overdue {
+    background: #dc3545;
+    color: white;
+  }
+
+  
