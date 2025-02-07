@@ -130,7 +130,7 @@ const Dashboard = ({loans = []}) => {
             <th>Status</th>
             <th>Paid (₦)</th>
             <th>Balance (₦)</th>
-            <th>Last Payment Date</th>
+            <th>Last Payment Date</th>  
           </tr>
         </thead>
         <tbody>

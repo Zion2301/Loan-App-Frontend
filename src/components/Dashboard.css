@@ -210,4 +210,34 @@
     color: white;
   }
 
+  .select {
+    padding: 10px;
+    border-radius: 50px;
+    border: none;
+  }
+
+  .amount {
+    padding: 10px;
+    border: none;
+    border-radius: 50px;
+  }
+
+  .submit {
+    color: white;
+}
+
+.form {
+    margin-left: 400px;
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+
+
   
