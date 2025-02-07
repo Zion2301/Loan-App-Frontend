@@ -238,6 +238,39 @@
     margin-top: 5px;
   }
 
+  .buttonStyle {
+    width: 100%;
+    padding: 10px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .inputStyle {
+    width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc
+  }
+
+  .errorStyle {
+     color: red;
+     font-size: 14px
+  }
+
+  .savedCard {
+     margin-top: 200px;
+     background-color: white;
+     padding: 15px;
+     display: flex;
+     flex-direction: column;
+     gap: 15px;
+     border-radius: 5px;
+  }
+
 
 
   
