@@ -1,17 +1,20 @@
-import "./Dashboard.css"
+import "./Dashboard.css";
 import { IoSpeedometer } from "react-icons/io5";
-import { FaMoneyBill1Wave } from "react-icons/fa6";
+import { FaMoneyBill1Wave, FaGear } from "react-icons/fa6";
 import { BsFillCreditCard2FrontFill } from "react-icons/bs";
 import { TbCreditCardPay } from "react-icons/tb";
-import { FaGear } from "react-icons/fa6";
 import { MdHelpOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
-import img from "../assets/logo.png"
-import styled from 'styled-components';
+import img from "../assets/logo.png";
+import styled from "styled-components";
 import { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+
 const LoanDashboard = () => {
-  const [loanType, setLoanType] = useState("personal");
+  const [type, setType] = useState("personal"); // Matches backend key
   const [amount, setAmount] = useState("");
+  const [term, setTerm] = useState(4); // Matches backend key
   const [error, setError] = useState("");
 
   // Loan type price ranges
@@ -22,10 +25,10 @@ const LoanDashboard = () => {
   };
 
   // Handle loan type change
-  const handleLoanTypeChange = (e) => {
-    setLoanType(e.target.value);
-    setAmount(""); // Reset amount when loan type changes
-    setError(""); // Clear any previous errors
+  const handleTypeChange = (e) => {
+    setType(e.target.value);
+    setAmount("");
+    setError("");
   };
 
   // Handle amount change
@@ -33,98 +36,125 @@ const LoanDashboard = () => {
     const value = parseInt(e.target.value, 10) || "";
     setAmount(value);
 
-    // Validate amount
-    if (value && (value < loanLimits[loanType].min || value > loanLimits[loanType].max)) {
-      setError(`Amount must be between ₦${loanLimits[loanType].min.toLocaleString()} and ₦${loanLimits[loanType].max.toLocaleString()}`);
+    if (value && (value < loanLimits[type].min || value > loanLimits[type].max)) {
+      setError(`Amount must be between ₦${loanLimits[type].min.toLocaleString()} and ₦${loanLimits[type].max.toLocaleString()}`);
     } else {
       setError("");
     }
   };
 
+  // Handle loan term change
+  const handleTermChange = (e) => {
+    setTerm(parseInt(e.target.value, 10));
+  };
+
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!amount || amount < loanLimits[loanType].min || amount > loanLimits[loanType].max) {
-      setError(`Amount must be between ₦${loanLimits[loanType].min.toLocaleString()} and ₦${loanLimits[loanType].max.toLocaleString()}`);
+    if (!amount || amount < loanLimits[type].min || amount > loanLimits[type].max) {
+      setError(`Amount must be between ₦${loanLimits[type].min.toLocaleString()} and ₦${loanLimits[type].max.toLocaleString()}`);
       return;
     }
 
-    alert(`Loan application submitted for ₦${amount.toLocaleString()} (${loanType})`);
+    const loanData = { amount, type, term };
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      Swal.fire({
+        icon: "warning",
+        title: "Unauthorized",
+        text: "You must be logged in to apply for a loan.",
+        confirmButtonColor: "#f39c12",
+      });
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/loans/apply", loanData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Loan Application Successful",
+        text: `Your loan request of ₦${amount.toLocaleString()} (${type}) has been submitted.`,
+        confirmButtonColor: "#58bc82",
+      });
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Application Failed",
+        text: error.response?.data?.message || "Error applying for loan. Please try again.",
+        confirmButtonColor: "#d33",
+      });
+    }
   };
+
   return (
-    <>
-      <div className="main-dashboard">
-        <div className="left-dash">
-        <img src={img} alt="" className="another-logo"/>
-            <div className="inner-left-div">
-            <div className="dash-links">
-               <Link className="ordinary" to="/dashboard"><IoSpeedometer/> Overview</Link>
-               <Link className="special"><FaMoneyBill1Wave/> Apply Loan</Link>
-               <Link className="ordinary" to="/payment"><BsFillCreditCard2FrontFill/> Payment Details</Link>
-               <Link className="ordinary" to="/paydash"><TbCreditCardPay/> Pay</Link>
-            </div>
-
-            <div className="lower-links">
-            <Link className="ordinary"><FaGear/> Settings</Link>
-            <Link className="ordinary"><MdHelpOutline/> Help & Support</Link>
-            </div>
-            </div>
-        </div>
-
-        <div className="right-dash">
-        <StyledWrapper>
-        <form className="form" onSubmit={handleSubmit}>
-      <span className="input-span">
-        <label htmlFor="amount" className="label">Amount</label>
-        <input 
-          type="number" 
-          name="amount" 
-          id="amount" 
-          className="amount" 
-          value={amount} 
-          onChange={handleAmountChange} 
-          placeholder={`₦${loanLimits[loanType].min.toLocaleString()} - ₦${loanLimits[loanType].max.toLocaleString()}`}
-        />
-        {error && <p className="error">{error}</p>}
-      </span>
-
-      <span className="input-span">
-        <label htmlFor="loanType" className="label">Type</label>
-        <select 
-          name="loanType" 
-          id="loanType" 
-          className="select" 
-          value={loanType} 
-          onChange={handleLoanTypeChange}
-        >
-          <option value="personal">Personal (₦50,000 - ₦500,000)</option>
-          <option value="business">Business (₦500,000 - ₦5,000,000)</option>
-          <option value="education">Education (₦100,000 - ₦2,000,000)</option>
-        </select>
-      </span>
-
-      <span className="input-span">
-        <label htmlFor="loanTerm" className="label">Term</label>
-        <select name="loanTerm" id="loanTerm" className="select">
-          <option value="4 Months">4 Months</option>
-          <option value="6 Months">6 Months</option>
-          <option value="12 Months">12 Months</option>
-          <option value="24 Months">24 Months</option>
-        </select>
-      </span>
-      
-      <button className="submit" type="submit">Apply for Loan</button>
-    </form>
-    </StyledWrapper>
+    <div className="main-dashboard">
+      <div className="left-dash">
+        <img src={img} alt="Logo" className="another-logo" />
+        <div className="inner-left-div">
+          <div className="dash-links">
+            <Link className="ordinary" to="/dashboard"><IoSpeedometer /> Overview</Link>
+            <Link className="special"><FaMoneyBill1Wave /> Apply Loan</Link>
+            <Link className="ordinary" to="/payment"><BsFillCreditCard2FrontFill /> Payment Details</Link>
+            <Link className="ordinary" to="/paydash"><TbCreditCardPay /> Pay</Link>
+          </div>
+          <div className="lower-links">
+            <Link className="ordinary"><FaGear /> Settings</Link>
+            <Link className="ordinary"><MdHelpOutline /> Help & Support</Link>
+          </div>
         </div>
       </div>
-    </>
-  )
-}
+
+      <div className="right-dash">
+        <StyledWrapper>
+          <form className="form-new" onSubmit={handleSubmit}>
+            <span className="input-span">
+              {/* Loan Type Dropdown */}
+              <label className="label">Loan Type</label>
+              <select value={type} onChange={handleTypeChange} className="stuff">
+                <option value="personal">Personal Loan</option>
+                <option value="business">Business Loan</option>
+                <option value="education">Education Loan</option>
+              </select>
+            </span>
+
+            <span className="input-span">
+              {/* Loan Amount Input */}
+              <label className="label">Loan Amount (₦)</label>
+              <input type="number" value={amount} onChange={handleAmountChange} placeholder="Enter amount" />
+              {error && <p className="error">{error}</p>}
+            </span>
+
+            <span className="input-span">
+              {/* Loan Term Dropdown */}
+              <label className="label">Loan Term (Months)</label>
+              <select value={term} onChange={handleTermChange} className="stuff">
+                <option value={4}>4 Months</option>
+                <option value={6}>6 Months</option>
+                <option value={12}>12 Months</option>
+              </select>
+            </span>
+
+            <button type="submit" className="submit">Apply for Loan</button>
+          </form>
+        </StyledWrapper>
+      </div>
+    </div>
+  );
+};
+
+
 
 const StyledWrapper = styled.div`
-  .form {
+  .form-new {
     --bg-light: #efefef;
     --bg-dark: #707070;
     --clr: #58bc82;
@@ -137,15 +167,15 @@ const StyledWrapper = styled.div`
     max-width: 300px;
   }
 
-  .form .input-span {
+  .form-new .input-span {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .form input[type="email"],
-  .form input[type="password"] {
+  .form-new input[type="number"],
+  .form-new input[type="password"] {
     border-radius: 0.5rem;
     padding: 1rem 0.75rem;
     width: 100%;
@@ -157,8 +187,21 @@ const StyledWrapper = styled.div`
     outline: 2px solid var(--bg-dark);
   }
 
-  .form input[type="email"]:focus,
-  .form input[type="password"]:focus {
+  .stuff {
+      border-radius: 0.5rem;
+    padding: 1rem 0.75rem;
+    width: 100%;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--clr-alpha);
+    outline: 2px solid var(--bg-dark);
+  }
+
+
+  .form-new input[type="email"]:focus,
+  .form-new input[type="password"]:focus {
     outline: 2px solid var(--clr);
   }
 
@@ -168,7 +211,7 @@ const StyledWrapper = styled.div`
     font-weight: 600;
   }
 
-  .form .submit {
+  .form-new .submit {
     padding: 1rem 0.75rem;
     width: 100%;
     display: flex;
@@ -184,7 +227,7 @@ const StyledWrapper = styled.div`
     font-size: 0.9rem;
   }
 
-  .form .submit:hover {
+  .form-new .submit:hover {
     background-color: var(--clr);
     color: var(--bg-dark);
   }

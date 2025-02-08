@@ -1,13 +1,14 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import axios from "axios";
 import img from "../assets/logo.png";
 import "./Dashboard.css";
 import { IoSpeedometer } from "react-icons/io5";
-import { FaMoneyBill1Wave } from "react-icons/fa6";
+import { FaMoneyBill1Wave, FaGear } from "react-icons/fa6";
 import { BsFillCreditCard2FrontFill } from "react-icons/bs";
 import { TbCreditCardPay } from "react-icons/tb";
-import { FaGear } from "react-icons/fa6";
 import { MdHelpOutline } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { useState } from "react";
 
 const PaymentDetails = () => {
   const [cardDetails, setCardDetails] = useState({
@@ -16,19 +17,36 @@ const PaymentDetails = () => {
     cvv: "",
   });
 
-  const [errors, setErrors] = useState({});
   const [savedCard, setSavedCard] = useState(null);
+  const [errors, setErrors] = useState({});
 
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  useEffect(() => {
+    fetchSavedCard();
+  }, []);
 
-    // Allow only numbers for cardNumber and CVV
-    if (name === "cardNumber" || name === "cvv") {
-      if (!/^\d*$/.test(value)) return;
+  const fetchSavedCard = async () => {
+    try {
+      const savedCardData = localStorage.getItem("savedCard");
+  
+      if (savedCardData) {
+        setSavedCard(JSON.parse(savedCardData));
+        return; // Avoid unnecessary API call
+      }
+  
+      const token = localStorage.getItem("token");
+      if (!token) return;
+  
+      const response = await axios.get("http://localhost:5000/api/payment-cards/details", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      if (response.status === 200 && response.data) {
+        setSavedCard(response.data);
+        localStorage.setItem("savedCard", JSON.stringify(response.data)); // Store fetched data
+      }
+    } catch (error) {
+      console.error("Error fetching saved card:", error);
     }
-
-    setCardDetails({ ...cardDetails, [name]: value });
   };
 
   // Validate card number using Luhn Algorithm
@@ -58,7 +76,7 @@ const PaymentDetails = () => {
     if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(date)) return "Invalid expiry format (MM/YY)";
 
     const [month, year] = date.split("/").map(Number);
-    const currentYear = new Date().getFullYear() % 100; // Get last 2 digits of the year
+    const currentYear = new Date().getFullYear() % 100;
     const currentMonth = new Date().getMonth() + 1;
 
     if (year < currentYear || (year === currentYear && month < currentMonth)) {
@@ -73,8 +91,8 @@ const PaymentDetails = () => {
     return /^\d{3,4}$/.test(cvv) ? "" : "Invalid CVV";
   };
 
-  // Validate all fields before saving
-  const handleSave = () => {
+  // Save card details
+  const handleSave = async () => {
     const errors = {
       cardNumber: validateCardNumber(cardDetails.cardNumber),
       expiryDate: validateExpiryDate(cardDetails.expiryDate),
@@ -82,91 +100,139 @@ const PaymentDetails = () => {
     };
 
     setErrors(errors);
-    console.log("Errors:", errors); // Debugging
 
     if (!errors.cardNumber && !errors.expiryDate && !errors.cvv) {
-      setSavedCard({ ...cardDetails });
-      console.log("Saved Card:", cardDetails); // Debugging
-      alert("Card details saved successfully!");
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          Swal.fire({
+            icon: "warning",
+            title: "No Token Found!",
+            text: "Please log in again.",
+            confirmButtonColor: "#d33",
+          });
+          return;
+        }
+
+        const response = await axios.post(
+          "http://localhost:5000/api/payment-cards/add",
+          {
+            cardNumber: cardDetails.cardNumber,
+            expiryDate: cardDetails.expiryDate,
+            cvv: cardDetails.cvv,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          setSavedCard({ ...cardDetails });
+          localStorage.setItem("savedCard", JSON.stringify(cardDetails));
+
+          Swal.fire({
+            icon: "success",
+            title: "Card Saved!",
+            text: "Your payment details were added successfully.",
+            confirmButtonColor: "#3085d6",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Failed!",
+            text: response.data.message || "Something went wrong. Please try again.",
+            confirmButtonColor: "#d33",
+          });
+        }
+      } catch (error) {
+        console.error("Error saving card:", error);
+
+        Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: error.response?.data?.message || "Unable to connect to the server.",
+          confirmButtonColor: "#d33",
+        });
+      }
     }
   };
 
   return (
-    <>
-      <div className="main-dashboard">
-        <div className="left-dash">
-          <img src={img} alt="" className="another-logo" />
-          <div className="inner-left-div">
-            <div className="dash-links">
-              <Link className="ordinary" to="/dashboard"><IoSpeedometer /> Overview</Link>
-              <Link className="ordinary" to="/loan"><FaMoneyBill1Wave /> Apply Loan</Link>
-              <Link className="special"><BsFillCreditCard2FrontFill /> Payment Details</Link>
-              <Link className="ordinary" to="/paydash"><TbCreditCardPay /> Pay</Link>
-            </div>
-
-            <div className="lower-links">
-              <Link className="ordinary"><FaGear /> Settings</Link>
-              <Link className="ordinary"><MdHelpOutline /> Help & Support</Link>
-            </div>
+    <div className="main-dashboard">
+      <div className="left-dash">
+        <img src={img} alt="" className="another-logo" />
+        <div className="inner-left-div">
+          <div className="dash-links">
+            <Link className="ordinary" to="/dashboard"><IoSpeedometer /> Overview</Link>
+            <Link className="ordinary" to="/loan"><FaMoneyBill1Wave /> Apply Loan</Link>
+            <Link className="special"><BsFillCreditCard2FrontFill /> Payment Details</Link>
+            <Link className="ordinary" to="/paydash"><TbCreditCardPay /> Pay</Link>
           </div>
-        </div>
 
-        <div className="right-dash">
-          <div>
-            <h2>Enter Card Details</h2>
-
-            <label>Card Number:</label>
-            <input
-              type="text"
-              name="cardNumber"
-              maxLength="19"
-              placeholder="Enter card number"
-              value={cardDetails.cardNumber}
-              onChange={handleChange}
-              className="inputStyle"
-            />
-            {errors.cardNumber && <p className="errorStyle">{errors.cardNumber}</p>}
-
-            <label>Expiry Date:</label>
-            <input
-              type="text"
-              name="expiryDate"
-              placeholder="MM/YY"
-              value={cardDetails.expiryDate}
-              onChange={handleChange}
-              className="inputStyle"
-            />
-            {errors.expiryDate && <p className="errorStyle">{errors.expiryDate}</p>}
-
-            <label>CVV:</label>
-            <input
-              type="text"
-              name="cvv"
-              maxLength="4"
-              placeholder="CVV"
-              value={cardDetails.cvv}
-              onChange={handleChange}
-              className="inputStyle"
-            />
-            {errors.cvv && <p className="errorStyle">{errors.cvv}</p>}
-
-            <button onClick={handleSave} className="buttonStyle">
-              Save
-            </button>
-
-            {/* Display saved card details */}
-            {savedCard && (
-              <div className="savedCard">
-                <h1>Saved Card</h1>
-                <p><strong>Card Number:</strong> {savedCard.cardNumber}</p>
-                <p><strong>Expiry Date:</strong> {savedCard.expiryDate}</p>
-                <p><strong>CVV:</strong> {savedCard.cvv}</p>
-              </div>
-            )}
+          <div className="lower-links">
+            <Link className="ordinary" to="/"><FaGear /> Settings</Link>
+            <Link className="ordinary"><MdHelpOutline /> Help & Support</Link>
           </div>
         </div>
       </div>
-    </>
+
+      <div className="right-dash">
+        <h2>Enter Card Details</h2>
+
+        <label>Card Number:</label>
+        <input
+          type="text"
+          name="cardNumber"
+          maxLength="19"
+          placeholder="Enter card number"
+          value={cardDetails.cardNumber}
+          onChange={(e) => setCardDetails({ ...cardDetails, cardNumber: e.target.value })}
+          className="inputStyle"
+        />
+        {errors.cardNumber && <p className="errorStyle">{errors.cardNumber}</p>}
+
+        <label>Expiry Date:</label>
+        <input
+          type="text"
+          name="expiryDate"
+          placeholder="MM/YY"
+          value={cardDetails.expiryDate}
+          onChange={(e) => setCardDetails({ ...cardDetails, expiryDate: e.target.value })}
+          className="inputStyle"
+        />
+        {errors.expiryDate && <p className="errorStyle">{errors.expiryDate}</p>}
+
+        <label>CVV:</label>
+        <input
+          type="text"
+          name="cvv"
+          maxLength="4"
+          placeholder="CVV"
+          value={cardDetails.cvv}
+          onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
+          className="inputStyle"
+        />
+        {errors.cvv && <p className="errorStyle">{errors.cvv}</p>}
+
+        <button onClick={handleSave} className="buttonStyle">
+          Save
+        </button>
+
+        {savedCard ? (
+          <div className="savedCard">
+            <h1>Saved Card</h1>
+            <p><strong>Card Number:</strong> {savedCard.cardNumber}</p>
+            <p><strong>Expiry Date:</strong> {savedCard.expiryDate}</p>
+          </div>
+        ) : (
+          <p>No saved card found.</p>
+        )}
+      </div>
+    </div>
   );
 };
 
