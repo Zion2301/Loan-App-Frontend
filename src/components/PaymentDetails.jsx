@@ -9,6 +9,8 @@ import { FaMoneyBill1Wave, FaGear } from "react-icons/fa6";
 import { BsFillCreditCard2FrontFill } from "react-icons/bs";
 import { TbCreditCardPay } from "react-icons/tb";
 import { MdHelpOutline } from "react-icons/md";
+import scan from "../assets/scanner.png"
+import signature from "../assets/image.png"
 
 const PaymentDetails = () => {
   const [cardDetails, setCardDetails] = useState({
@@ -19,6 +21,8 @@ const PaymentDetails = () => {
 
   const [savedCard, setSavedCard] = useState(null);
   const [errors, setErrors] = useState({});
+  const [flipped, setFlipped] = useState(false);
+  const [showCVV, setShowCVV] = useState(false);
 
   useEffect(() => {
     fetchSavedCard();
@@ -169,7 +173,7 @@ const PaymentDetails = () => {
           <div className="dash-links">
             <Link className="ordinary" to="/dashboard"><IoSpeedometer /> Overview</Link>
             <Link className="ordinary" to="/loan"><FaMoneyBill1Wave /> Apply Loan</Link>
-            <Link className="special"><BsFillCreditCard2FrontFill /> Payment Details</Link>
+            <Link className="ordinary"><BsFillCreditCard2FrontFill /> Payment Details</Link>
             <Link className="ordinary" to="/paydash"><TbCreditCardPay /> Pay</Link>
           </div>
 
@@ -223,14 +227,35 @@ const PaymentDetails = () => {
         </button>
 
         {savedCard ? (
-          <div className="savedCard">
-            <h1>Saved Card</h1>
-            <p><strong>Card Number:</strong> {savedCard.cardNumber}</p>
-            <p><strong>Expiry Date:</strong> {savedCard.expiryDate}</p>
-          </div>
-        ) : (
-          <p>No saved card found.</p>
-        )}
+  <div className={`savedCard card-container ${flipped ? "flipped" : ""}`} onClick={() => setFlipped(!flipped)}>
+    {/* Front Side */}
+    <div className="card front">
+      <h1 className="flash">FlashMoney</h1>
+      <img src={scan} alt="" className="scan" />
+      <p className="number-shi"> **** **** **** {savedCard.cardNumber.slice(-4)}</p>
+      <p className="mini">4000</p>
+      <p className="expired"> {savedCard.expiryDate}</p>
+    </div>
+
+    {/* Back Side */}
+    <div className="card back">
+      <p className='card-shi'>Card Back</p>
+      <p className="author">Authorized Signature</p>
+      <div className="signature-div">
+      <img src={signature} alt="" className="shi" />
+      <div className="cvv-container">
+        <p className='cvv-shi'> {showCVV ? savedCard.cvv : "***"}</p>
+        <button onClick={(e) => { e.stopPropagation(); setShowCVV(!showCVV); }}>
+          {showCVV ? "Hide" : "Show"}
+        </button>
+      </div>
+      </div>
+    </div>
+  </div>
+) : (
+  <p>No saved card found.</p>
+)}
+
       </div>
     </div>
   );

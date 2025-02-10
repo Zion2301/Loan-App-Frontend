@@ -1,7 +1,6 @@
 .main-dashboard {
     width: 100%;
     display: flex;
-    background-color: rgb(241, 241, 241);
 }
 
 .left-dash {
@@ -19,8 +18,8 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-    margin-left: 78px;
-    gap: 25px;
+    gap: 40px;
+    margin-left: 30px;
     /* justify-content: center; */
 }
 
@@ -35,29 +34,44 @@
 }
 
 .ordinary {
-    text-decoration: none;
-    color: black;
-    font-size: 20px;
+  text-decoration: none;
+  color: black;
+  font-size: 20px;
+  background-color: white;
+  padding: 10px;
+  width: 250px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+  transition: box-shadow 0.3s ease-in-out; /* Smooth effect */
+}
+
+.ordinary:hover {
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2); /* Slightly deeper shadow on hover */
 }
 
 .lower-links {
     display: flex;
     flex-direction: column;
     align-items: start;
-    padding-left: 78px;
+    padding-left: 30px;
     gap: 20px;
 }
 
 .inner-left-div {
     display: flex;
     flex-direction: column;
-    gap: 250px;
+    gap: 140px;
 }
 
 .right-dash {
     width: 80%;
     padding: 40px;
     margin-left: 320px;
+    /* background-image: url("../assets/loan-removebg-preview.png"); */
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-color: rgb(239, 239, 239);
 }
 
 .date {
@@ -92,13 +106,15 @@
 }
 
 .chart-div {
-    background-color: #28a7463d;
+    background-color: white;
     width: 50%;
     padding: 15px;
+    border-radius: 10px;
 }
 
 .zee {
-    padding-top: 30px;
+    padding-top: 30px;  
+    padding-bottom: 10px;
 }
 
 .current {
@@ -129,12 +145,14 @@
     padding-top: 20px;
     display: flex;
     gap: 20px;
+    border-top: 2px solid rgba(128, 128, 128, 0.459);
 }
 
 .little {   
     height: 240px;
-    background-color: #28a7463d;
+    background-color: white;
     padding: 15px;
+    border-radius: 10px;
 }
 
 .pretty {
@@ -143,7 +161,6 @@
 }
 
 /* LoanTable.css */
-
 .table-container {
     width: 100%;
     max-width: 1200px;
@@ -151,15 +168,14 @@
     padding: 20px;
     background: #ffffff;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
   }
   
   .table-title {
-    text-align: center;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: bold;
     color: #333;
-    margin-bottom: 15px;
+    padding-bottom: 10px;
   }
   
   .loan-table {
@@ -172,6 +188,7 @@
   .loan-table thead {
     color: black;
     font-weight: bold;
+    background-color: rgb(243, 243, 243);
   }
   
   .loan-table th, .loan-table td {
@@ -196,8 +213,8 @@
   }
   
   .status.active {
-    background: #28a745;
-    color: white;
+    color: #67ff8a;
+    padding: 15px;
   }
   
   .status.paid {
@@ -361,4 +378,121 @@
     color: var(--clr);
   };
 
+  .stuff {
+    padding: 15px;
+  }
+
+  .card-container {
+    width: 450px;
+    height: 250px;
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+    background-color: rgb(239, 239, 239);
+  }
+  
+  .card {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+    color: white;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+    position: absolute;
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+  }
+  
+  .front {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+  }
+  
+  .cvv-container button {
+    background: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .savedCard.flipped .front {
+    transform: rotateY(180deg);
+  }
+  
+  .savedCard.flipped .back {
+    transform: rotateY(360deg);
+  }
+
+  .flash {
+    font-size: 24px;
+    font-weight: lighter;
+    padding: 20px;
+    padding-top: 30px;
+    padding-left: 30px;
+  }
+
+  .number-shi {
+    font-size: 25px;
+    color: rgb(168, 168, 168);
+    padding-left: 30px;
+  }
+
+  .scan {
+    padding-left: 50px;
+  }
+
+  .expired {
+    font-weight: lighter;
+    text-align: center;
+    color: rgb(168, 168, 168);
+    padding-top: 15px;
+  }
+
+  .mini {
+    font-size: 8px;
+    padding-left: 30px;
+  }
+
+  .card-shi {
+    background-color: black;
+    color: black;
+    padding: 10px;
+    margin-top: 40px;
+  }
+
+  .cvv-shi {
+    color: black;
+    background-color: rgb(242, 242, 242);
+    padding: 11px;
+    width: 70px;
+  }
+
+  .signature-div {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .author {
+    color: rgb(216, 216, 216);
+    font-size: 11px;
+    padding-top: 20px;
+    padding-left: 80px;
+    padding-bottom: 15px;
+  }
+.actual-shi {
+  margin-top: 159px;
+  margin-left: 100px;
+  font-size: 30px;
+}
   

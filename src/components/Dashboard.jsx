@@ -13,6 +13,7 @@ import { FaRegBell } from "react-icons/fa6";
 import { GoPerson } from "react-icons/go";
 import { RadialBarChart, RadialBar, PolarAngleAxis } from "recharts";
 import { useNavigate } from "react-router-dom";
+import {  PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
 
 const Dashboard = () => {
   const [userName, setUserName] = useState("");
@@ -76,8 +77,19 @@ const Dashboard = () => {
   );
 
   const percentagePaid = totalAmount ? (totalPaid / totalAmount) * 100 : 0;
+  const percentageNotPaid = 100 - percentagePaid;
 
   const data = [{ name: "Paid", value: percentagePaid, fill: "#28a745" }];
+
+  const pieData = [
+    { name: "Paid", value: percentagePaid, color: "#28a745" },
+    { name: "Not Paid", value: percentageNotPaid, color: "#dc3545" },
+  ];
+
+  const barData = [
+    { name: "Paid", value: percentagePaid },
+    { name: "Not Paid", value: percentageNotPaid },
+  ];
 
   return (
     <>
@@ -86,7 +98,7 @@ const Dashboard = () => {
           <img src={img} alt="" className="another-logo" />
           <div className="inner-left-div">
             <div className="dash-links">
-              <Link className="special">
+              <Link className="ordinary">
                 <IoSpeedometer /> Overview
               </Link>
               <Link className="ordinary" to="/loan">
@@ -96,7 +108,7 @@ const Dashboard = () => {
                 <BsFillCreditCard2FrontFill /> Payment Details
               </Link>
               <Link className="ordinary" to="/paydash">
-                <TbCreditCardPay /> Pay
+                <TbCreditCardPay/> Pay
               </Link>
             </div>
 
@@ -158,21 +170,39 @@ const Dashboard = () => {
             </div>
 
             <div className="second-chart-div">
-              <div className="little">
-                <Link className="pretty">Make a Loan Payment</Link>
-              </div>
+            <div className="little">
+            <PieChart width={200} height={200}>
+              <Pie data={pieData} dataKey="value" cx="60%" cy="50%" outerRadius={60} label>
+                {pieData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+            </PieChart>
+            <div className="legend">
+              {pieData.map((entry, index) => (
+                <p key={index} style={{ color: entry.color }}>{entry.name}</p>
+              ))}
+            </div>
+          </div>
 
-              <div className="little">
-                <Link className="pretty">See Payment Options</Link>
-              </div>
+          <div className="little">
+            <BarChart width={200} height={200} data={barData}>
+              <XAxis dataKey="name" />
+              <YAxis domain={[0, 100]} />
+              <Tooltip />
+              <Bar dataKey="value" fill="#8884d8" />
+            </BarChart>
+          </div>
 
-              <div className="little">
-                <Link className="pretty">Loan Applications</Link>
-              </div>
+          <div className="little">
+            <p className="amount-paid">Amount Paid</p>
+            <h3 className="actual-shi">{percentagePaid.toFixed(2)}%</h3>
+          </div>
 
-              <div className="little">
-                <Link className="pretty">Apply for a new loan</Link>
-              </div>
+          <div className="little">
+            <p className="amount-paid">Amount Not Paid</p>
+            <h3 className="actual-shi">{percentageNotPaid.toFixed(2)}% </h3>
+          </div>
             </div>
           </div>
 

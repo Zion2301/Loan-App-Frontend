@@ -66,7 +66,7 @@ const Pay = () => {
               <Link className="ordinary" to="payment">
                 <BsFillCreditCard2FrontFill /> Payment Details
               </Link>
-              <Link className="special">
+              <Link className="ordinary">
                 <TbCreditCardPay /> Pay
               </Link>
             </div>

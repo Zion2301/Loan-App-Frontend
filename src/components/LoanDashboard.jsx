@@ -1,4 +1,4 @@
-import "./Dashboard.css";
+import "./loanDashboard.css";
 import { IoSpeedometer } from "react-icons/io5";
 import { FaMoneyBill1Wave, FaGear } from "react-icons/fa6";
 import { BsFillCreditCard2FrontFill } from "react-icons/bs";
@@ -6,7 +6,6 @@ import { TbCreditCardPay } from "react-icons/tb";
 import { MdHelpOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 import img from "../assets/logo.png";
-import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -102,7 +101,7 @@ const LoanDashboard = () => {
         <div className="inner-left-div">
           <div className="dash-links">
             <Link className="ordinary" to="/dashboard"><IoSpeedometer /> Overview</Link>
-            <Link className="special"><FaMoneyBill1Wave /> Apply Loan</Link>
+            <Link className="ordinary"><FaMoneyBill1Wave /> Apply Loan</Link>
             <Link className="ordinary" to="/payment"><BsFillCreditCard2FrontFill /> Payment Details</Link>
             <Link className="ordinary" to="/paydash"><TbCreditCardPay /> Pay</Link>
           </div>
@@ -114,8 +113,9 @@ const LoanDashboard = () => {
       </div>
 
       <div className="right-dash">
-        <StyledWrapper>
+        {/* <StyledWrapper> */}
           <form className="form-new" onSubmit={handleSubmit}>
+          <h1 className="yeah">Apply For Loan</h1>
             <span className="input-span">
               {/* Loan Type Dropdown */}
               <label className="label">Loan Type</label>
@@ -129,7 +129,7 @@ const LoanDashboard = () => {
             <span className="input-span">
               {/* Loan Amount Input */}
               <label className="label">Loan Amount (₦)</label>
-              <input type="number" value={amount} onChange={handleAmountChange} placeholder="Enter amount" />
+              <input type="number" value={amount} onChange={handleAmountChange} placeholder="Enter amount" className="stuff"/>
               {error && <p className="error">{error}</p>}
             </span>
 
@@ -145,104 +145,10 @@ const LoanDashboard = () => {
 
             <button type="submit" className="submit">Apply for Loan</button>
           </form>
-        </StyledWrapper>
+        {/* </StyledWrapper> */}
       </div>
     </div>
   );
 };
-
-
-
-const StyledWrapper = styled.div`
-  .form-new {
-    --bg-light: #efefef;
-    --bg-dark: #707070;
-    --clr: #58bc82;
-    --clr-alpha: #9c9c9c60;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-    max-width: 300px;
-  }
-
-  .form-new .input-span {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .form-new input[type="number"],
-  .form-new input[type="password"] {
-    border-radius: 0.5rem;
-    padding: 1rem 0.75rem;
-    width: 100%;
-    border: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: var(--clr-alpha);
-    outline: 2px solid var(--bg-dark);
-  }
-
-  .stuff {
-      border-radius: 0.5rem;
-    padding: 1rem 0.75rem;
-    width: 100%;
-    border: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: var(--clr-alpha);
-    outline: 2px solid var(--bg-dark);
-  }
-
-
-  .form-new input[type="email"]:focus,
-  .form-new input[type="password"]:focus {
-    outline: 2px solid var(--clr);
-  }
-
-  .label {
-    align-self: flex-start;
-    color: var(--clr);
-    font-weight: 600;
-  }
-
-  .form-new .submit {
-    padding: 1rem 0.75rem;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-radius: 3rem;
-    background-color: var(--bg-dark);
-    color: var(--bg-light);
-    border: none;
-    cursor: pointer;
-    transition: all 300ms;
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
-
-  .form-new .submit:hover {
-    background-color: var(--clr);
-    color: var(--bg-dark);
-  }
-
-  .span {
-    text-decoration: none;
-    color: var(--bg-dark);
-  }
-
-  .submit {
-    text-align: center;
-  }
-
-  .span a {
-    color: var(--clr);
-  }`;
 
 export default LoanDashboard
