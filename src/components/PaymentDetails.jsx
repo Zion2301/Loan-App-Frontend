@@ -185,77 +185,79 @@ const PaymentDetails = () => {
       </div>
 
       <div className="right-dash">
-        <h2>Enter Card Details</h2>
+       <div className="inner-right-dash">
+       <h2 className='card-details'>Enter Card Details</h2>
 
-        <label>Card Number:</label>
-        <input
-          type="text"
-          name="cardNumber"
-          maxLength="19"
-          placeholder="Enter card number"
-          value={cardDetails.cardNumber}
-          onChange={(e) => setCardDetails({ ...cardDetails, cardNumber: e.target.value })}
-          className="inputStyle"
-        />
-        {errors.cardNumber && <p className="errorStyle">{errors.cardNumber}</p>}
+<label className='label'>Card Number:</label>
+<input
+  type="text"
+  name="cardNumber"
+  maxLength="19"
+  placeholder="Enter card number"
+  value={cardDetails.cardNumber}
+  onChange={(e) => setCardDetails({ ...cardDetails, cardNumber: e.target.value })}
+  className='stuff'
+/>
+{errors.cardNumber && <p className="errorStyle">{errors.cardNumber}</p>}
 
-        <label>Expiry Date:</label>
-        <input
-          type="text"
-          name="expiryDate"
-          placeholder="MM/YY"
-          value={cardDetails.expiryDate}
-          onChange={(e) => setCardDetails({ ...cardDetails, expiryDate: e.target.value })}
-          className="inputStyle"
-        />
-        {errors.expiryDate && <p className="errorStyle">{errors.expiryDate}</p>}
+<label className='label'>Expiry Date:</label>
+<input
+  type="text"
+  name="expiryDate"
+  placeholder="MM/YY"
+  value={cardDetails.expiryDate}
+  onChange={(e) => setCardDetails({ ...cardDetails, expiryDate: e.target.value })}
+  className="stuff"
+/>
+{errors.expiryDate && <p className="errorStyle">{errors.expiryDate}</p>}
 
-        <label>CVV:</label>
-        <input
-          type="text"
-          name="cvv"
-          maxLength="4"
-          placeholder="CVV"
-          value={cardDetails.cvv}
-          onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
-          className="inputStyle"
-        />
-        {errors.cvv && <p className="errorStyle">{errors.cvv}</p>}
+<label className='label'>CVV:</label>
+<input
+  type="text"
+  name="cvv"
+  maxLength="4"
+  placeholder="CVV"
+  value={cardDetails.cvv}
+  onChange={(e) => setCardDetails({ ...cardDetails, cvv: e.target.value })}
+  className="stuff"
+/>
+{errors.cvv && <p className="errorStyle">{errors.cvv}</p>}
 
-        <button onClick={handleSave} className="buttonStyle">
-          Save
-        </button>
+<button onClick={handleSave} className="submit">
+  Save
+</button>
 
-        {savedCard ? (
-  <div className={`savedCard card-container ${flipped ? "flipped" : ""}`} onClick={() => setFlipped(!flipped)}>
-    {/* Front Side */}
-    <div className="card front">
-      <h1 className="flash">FlashMoney</h1>
-      <img src={scan} alt="" className="scan" />
-      <p className="number-shi"> **** **** **** {savedCard.cardNumber.slice(-4)}</p>
-      <p className="mini">4000</p>
-      <p className="expired"> {savedCard.expiryDate}</p>
-    </div>
+{savedCard ? (
+<div className={`savedCard card-container ${flipped ? "flipped" : ""}`} onClick={() => setFlipped(!flipped)}>
+{/* Front Side */}
+<div className="card front">
+<h1 className="flash">FlashMoney</h1>
+<img src={scan} alt="" className="scan" />
+<p className="number-shi"> **** **** **** {savedCard.cardNumber.slice(-4)}</p>
+<p className="mini">4000</p>
+<p className="expired"> {savedCard.expiryDate}</p>
+</div>
 
-    {/* Back Side */}
-    <div className="card back">
-      <p className='card-shi'>Card Back</p>
-      <p className="author">Authorized Signature</p>
-      <div className="signature-div">
-      <img src={signature} alt="" className="shi" />
-      <div className="cvv-container">
-        <p className='cvv-shi'> {showCVV ? savedCard.cvv : "***"}</p>
-        <button onClick={(e) => { e.stopPropagation(); setShowCVV(!showCVV); }}>
-          {showCVV ? "Hide" : "Show"}
-        </button>
-      </div>
-      </div>
-    </div>
-  </div>
+{/* Back Side */}
+<div className="card back">
+<p className='card-shi'>Card Back</p>
+<p className="author">Authorized Signature</p>
+<div className="signature-div">
+<img src={signature} alt="" className="shi" />
+<div className="cvv-container">
+<p className='cvv-shi'> {showCVV ? savedCard.cvv : "***"}</p>
+<button onClick={(e) => { e.stopPropagation(); setShowCVV(!showCVV); }}>
+  {showCVV ? "Hide" : "Show"}
+</button>
+</div>
+</div>
+</div>
+</div>
 ) : (
-  <p>No saved card found.</p>
+<p>No saved card found.</p>
 )}
 
+       </div>
       </div>
     </div>
   );

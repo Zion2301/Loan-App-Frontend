@@ -83,32 +83,34 @@ const Pay = () => {
         </div>
 
         <div className="right-dash">
+          <div className="inner-right-dash">
           <div className="form-shi">
             <h2 className="values">Enter Values for Payment</h2>
 
-            <label>LoanId:</label>
+            <label  className="label">LoanId:</label>
             <input
               type="number"
               name="loanId"
               placeholder="Enter LoanId"
-              className="inputStyle"
+              className="stuff"
               value={loanId}
               onChange={(e) => setLoanId(e.target.value)}
             />
 
-            <label>Amount:</label>
+            <label className="label">Amount:</label>
             <input
               type="number"
               name="amount"
-              className="inputStyle"
+              className="stuff"
               placeholder="Enter Amount to be paid"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
 
-            <button className="buttonStyle" onClick={handlePayment} disabled={loading}>
+            <button className="submit" onClick={handlePayment} disabled={loading}>
               {loading ? "Processing..." : "Pay"}
             </button>
+          </div>
           </div>
         </div>
       </div>

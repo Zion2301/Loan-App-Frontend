@@ -266,12 +266,23 @@
   }
 
   .inputStyle {
-    width: 100%;
   padding: 8px;
   margin-bottom: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc
+  border: 1px solid #ccc;
+  width: 100%;
   }
+
+  .inner-right-dash {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+     align-items: center;
+     gap: 20px;
+     margin-left: 300px;
+    /* justify-content: center;  */
+  }
+
 
   .errorStyle {
      color: red;
@@ -289,8 +300,14 @@
   }
 
   .form-shi {
-    margin-top: 200px;
-    margin-bottom: 270px;
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+     align-items: center;
+     gap: 20px;
+     height: 100vh;
+     margin-top: 150px;
+     /* margin-left: 300px; */
   }
 
   .values {
@@ -340,8 +357,9 @@
 
   .label {
     align-self: flex-start;
-    color: var(--clr);
+    color: #58bc82;
     font-weight: 600;
+    padding-bottom: 5px;
   }
 
   .form .submit {
@@ -380,6 +398,10 @@
 
   .stuff {
     padding: 15px;
+    width: 500px;
+    border-radius: 10px;
+    border: 1px solid rgb(208, 208, 208);
+    margin-bottom: 15px;
   }
 
   .card-container {
