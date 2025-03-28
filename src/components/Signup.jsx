@@ -15,7 +15,9 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/users/register", formData);
+      const res = await axios.post("http://localhost:5000/api/users/register", formData, {
+        withCredentials: true, // Required for CORS with credentials
+      });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("name", res.data.user.name);
       

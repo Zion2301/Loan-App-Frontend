@@ -186,8 +186,11 @@ const PaymentDetails = () => {
 
       <div className="right-dash">
        <div className="inner-right-dash">
+       
+       <div className="left-card-div">
        <h2 className='card-details'>Enter Card Details</h2>
 
+<div className="label-div">
 <label className='label'>Card Number:</label>
 <input
   type="text"
@@ -199,7 +202,9 @@ const PaymentDetails = () => {
   className='stuff'
 />
 {errors.cardNumber && <p className="errorStyle">{errors.cardNumber}</p>}
+</div>
 
+<div className="label-div">
 <label className='label'>Expiry Date:</label>
 <input
   type="text"
@@ -210,7 +215,9 @@ const PaymentDetails = () => {
   className="stuff"
 />
 {errors.expiryDate && <p className="errorStyle">{errors.expiryDate}</p>}
+</div>
 
+<div className="label-div">
 <label className='label'>CVV:</label>
 <input
   type="text"
@@ -222,11 +229,15 @@ const PaymentDetails = () => {
   className="stuff"
 />
 {errors.cvv && <p className="errorStyle">{errors.cvv}</p>}
+</div>
 
 <button onClick={handleSave} className="submit">
   Save
 </button>
+       </div>
 
+
+<div className="right-card-div">
 {savedCard ? (
 <div className={`savedCard card-container ${flipped ? "flipped" : ""}`} onClick={() => setFlipped(!flipped)}>
 {/* Front Side */}
@@ -256,6 +267,7 @@ const PaymentDetails = () => {
 ) : (
 <p>No saved card found.</p>
 )}
+</div>
 
        </div>
       </div>

@@ -13,7 +13,7 @@ import { FaRegBell } from "react-icons/fa6";
 import { GoPerson } from "react-icons/go";
 import { RadialBarChart, RadialBar, PolarAngleAxis } from "recharts";
 import { useNavigate } from "react-router-dom";
-import {  PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
+import {  PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip} from "recharts";
 
 const Dashboard = () => {
   const [userName, setUserName] = useState("");

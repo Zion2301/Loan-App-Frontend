@@ -25,7 +25,7 @@ const Home = () => {
         <div className="inner-blue">
             <div className="left-div">
                 <h1 className="way">easiest way to <br></br> <span className="loan">LOAN Money</span></h1>
-                <p className="text">EASYLOAN™ is an innovative personal lending platform created to connect<br></br> people with their dreams by providing finance and financial resources that is<br></br> easily accessible and affordable.</p>
+                <p className="text">FastMoney™ is an innovative personal lending platform created to connect<br></br> people with their dreams by providing finance and financial resources that is<br></br> easily accessible and affordable.</p>
             </div>
 
             <div className="right-div">
