@@ -150,7 +150,7 @@ const Dashboard = () => {
           <div className="idk-div">
             <div className="chart-div">
               <p className="current">Current monthly deduction</p>
-              <h2 className="amount">₦{loans.length > 0 ? ((loans[0].amount * 1.1) / loans[0].term).toFixed(2) : "100"}</h2>
+              <h2 className="amount">₦{loans.length > 0 ? ((loans[0].amount * 1.1) / loans[0].term).toFixed(2) : "100"} +10% interest</h2>
 
               <RadialBarChart
                 width={500}

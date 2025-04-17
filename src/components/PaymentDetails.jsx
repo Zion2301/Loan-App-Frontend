@@ -36,17 +36,17 @@ const PaymentDetails = () => {
         setSavedCard(JSON.parse(savedCardData));
         return; // Avoid unnecessary API call
       }
-  
+      const userId = localStorage.getItem("userId");
       const token = localStorage.getItem("token");
-      if (!token) return;
+      if (!token || !userId) return;
   
       const response = await axios.get("https://loan-app-api-production.up.railway.app/api/payment-cards/details", {
         headers: { Authorization: `Bearer ${token}` },
       });
   
-      if (response.status === 200 && response.data) {
-        setSavedCard(response.data);
-        localStorage.setItem("savedCard", JSON.stringify(response.data)); // Store fetched data
+      if (response.status === 200 && response.data.card) {
+        setSavedCard(response.data.card);
+        // localStorage.setItem("savedCard", JSON.stringify(response.data)); // Store fetched data
       }
     } catch (error) {
       console.error("Error fetching saved card:", error);
@@ -136,7 +136,7 @@ const PaymentDetails = () => {
 
         if (response.status === 200) {
           setSavedCard({ ...cardDetails });
-          localStorage.setItem("savedCard", JSON.stringify(cardDetails));
+          // localStorage.setItem("savedCard", JSON.stringify(cardDetails));
 
           Swal.fire({
             icon: "success",

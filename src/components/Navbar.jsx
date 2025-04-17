@@ -30,6 +30,7 @@ const Navbar = () => {
       if (result.isConfirmed) {
         localStorage.removeItem("token");
         localStorage.removeItem("name");
+        localStorage.removeItem("userId")
         setIsLoggedIn(false);
         navigate("/login");
   

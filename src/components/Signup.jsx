@@ -20,6 +20,7 @@ const Signup = () => {
       });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("name", res.data.user.name);
+      localStorage.setItem("userId", res.data.user.id);
       
       Swal.fire({
         icon: "success",
