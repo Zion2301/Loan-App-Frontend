@@ -47,7 +47,7 @@ const Footer = () => {
     </div>
   </div>
   <div className="text">
-    <a className="icon" href="https://www.linkedin.com/in/zion-omogbeme-5a42bb299/">
+    <a className="icon" href="https://www.linkedin.com/in/zion-omogbeme-43021b359/">
       <div className="layer">
         <span></span>
         <span></span>
