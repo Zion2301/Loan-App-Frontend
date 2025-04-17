@@ -7,12 +7,14 @@ const Login = () => {
 
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const res = await axios.post("https://loan-app-api-production.up.railway.app/api/users/login", formData);
@@ -33,6 +35,7 @@ const Login = () => {
              title: "Login Failed",
              text: err.response?.data?.message || "Something went wrong. Please try again.",
            });
+           setLoading(false);
     }
   };
   return (  
@@ -51,7 +54,7 @@ const Login = () => {
         <div className="inputForm">
           <input type="password" className="input" placeholder="Enter your Password" required onChange={handleChange} name='password'/>
         </div>
-        <button className="button-submit" type='submit'>Login</button>
+        <button className="button-submit" type='submit' disabled={loading}>{loading ? "Logging You In...." : "Log In"}</button>
         {/* <p className="p">Already have a account? <span className="span">login</span></p> */}
         <div className="flex-row">
         </div>

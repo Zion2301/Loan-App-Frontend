@@ -23,6 +23,7 @@ const PaymentDetails = () => {
   const [errors, setErrors] = useState({});
   const [flipped, setFlipped] = useState(false);
   const [showCVV, setShowCVV] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchSavedCard();
@@ -97,6 +98,7 @@ const PaymentDetails = () => {
 
   // Save card details
   const handleSave = async () => {
+    setLoading(true);
     const errors = {
       cardNumber: validateCardNumber(cardDetails.cardNumber),
       expiryDate: validateExpiryDate(cardDetails.expiryDate),
@@ -163,6 +165,7 @@ const PaymentDetails = () => {
         });
       }
     }
+    setLoading(false);
   };
 
   return (
@@ -231,8 +234,8 @@ const PaymentDetails = () => {
 {errors.cvv && <p className="errorStyle">{errors.cvv}</p>}
 </div>
 
-<button onClick={handleSave} className="submit">
-  Save
+<button onClick={handleSave} className="submit" disabled={loading}>
+  {loading ? "Saving..." : "Save"}
 </button>
        </div>
 

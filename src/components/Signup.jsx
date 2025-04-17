@@ -7,12 +7,14 @@ import Swal from 'sweetalert2';
 const Signup = () => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
    
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     try {
       const res = await axios.post("https://loan-app-api-production.up.railway.app/api/users/register", formData, {
@@ -36,6 +38,7 @@ const Signup = () => {
         text: err.response?.data?.message || "Something went wrong. Please try again.",
       });
     }
+    setLoading(false);
   };
 
   return (
@@ -83,7 +86,7 @@ const Signup = () => {
           />
         </div>
 
-        <button className="button-submit" type="submit">Sign Up</button>
+        <button className="button-submit" type="submit" disabled={loading}>{loading ? "Signing You Up...." : "Sign Up"}</button>
       </form>
     </StyledWrapper>
   );
