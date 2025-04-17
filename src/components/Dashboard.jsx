@@ -51,41 +51,50 @@ const Dashboard = () => {
         const response = await fetch("https://loan-app-api-production.up.railway.app/api/loans/details", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
-
+  
         if (!response.ok) {
           throw new Error("Failed to fetch loans");
         }
-
+  
         const data = await response.json();
         setLoans(data.loans || []);
-
+  
         // Calculate total loan amount
         const total = data.loans.reduce((sum, loan) => sum + loan.amount, 0);
         setTotalAmount(total);
+  
+        // Calculate monthly installment for each loan
+        const installments = data.loans.map((loan) => {
+          const monthlyInstallment = (loan.amount * 1.1) / loan.term;
+          return {
+            loanId: loan.id, // Assuming each loan has an id
+            monthlyInstallment,
+          };
+        });
+        console.log("Monthly Installments: ", installments);
       } catch (error) {
         console.error("Error fetching loans:", error);
       }
     };
-
+  
     fetchLoans();
   }, []);
-
-  // Calculate total paid and percentage
+  
   const totalPaid = loans.reduce(
     (sum, loan) => sum + loan.payments.reduce((pSum, p) => pSum + p.amount, 0),
     0
   );
-
+  
   const percentagePaid = totalAmount ? (totalPaid / totalAmount) * 100 : 0;
   const percentageNotPaid = 100 - percentagePaid;
-
+  
   const data = [{ name: "Paid", value: percentagePaid, fill: "#28a745" }];
-
+  
   const pieData = [
     { name: "Paid", value: percentagePaid, color: "#28a745" },
     { name: "Not Paid", value: percentageNotPaid, color: "#dc3545" },
   ];
-
+  
   const barData = [
     { name: "Paid", value: percentagePaid },
     { name: "Not Paid", value: percentageNotPaid },
@@ -141,7 +150,7 @@ const Dashboard = () => {
           <div className="idk-div">
             <div className="chart-div">
               <p className="current">Current monthly deduction</p>
-              <h2 className="amount">₦100</h2>
+              <h2 className="amount">₦{loans.length > 0 ? ((loans[0].amount * 1.1) / loans[0].term).toFixed(2) : "100"}</h2>
 
               <RadialBarChart
                 width={500}
