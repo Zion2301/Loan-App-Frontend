@@ -11,11 +11,11 @@ const Signup = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+   
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/users/register", formData, {
+      const res = await axios.post("https://loan-app-api-production.up.railway.app/api/users/register", formData, {
         withCredentials: true, // Required for CORS with credentials
       });
       localStorage.setItem("token", res.data.token);

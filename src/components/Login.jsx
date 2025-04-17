@@ -15,7 +15,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/users/login", formData);
+      const res = await axios.post("https://loan-app-api-production.up.railway.app/api/users/login", formData);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("name", res.data.user.name);
       Swal.fire({

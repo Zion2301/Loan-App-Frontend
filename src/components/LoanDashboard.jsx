@@ -71,7 +71,7 @@ const LoanDashboard = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/loans/apply", loanData, {
+      const response = await axios.post("https://loan-app-api-production.up.railway.app/api/loans/apply", loanData, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

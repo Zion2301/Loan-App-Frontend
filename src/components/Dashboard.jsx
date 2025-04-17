@@ -48,7 +48,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchLoans = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/loans/details", {
+        const response = await fetch("https://loan-app-api-production.up.railway.app/api/loans/details", {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
 

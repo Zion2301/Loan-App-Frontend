@@ -40,7 +40,7 @@ const PaymentDetails = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
   
-      const response = await axios.get("http://localhost:5000/api/payment-cards/details", {
+      const response = await axios.get("https://loan-app-api-production.up.railway.app/api/payment-cards/details", {
         headers: { Authorization: `Bearer ${token}` },
       });
   
