@@ -120,7 +120,7 @@ const PaymentDetails = () => {
         }
 
         const response = await axios.post(
-          "http://localhost:5000/api/payment-cards/add",
+          "https://loan-app-api-production.up.railway.app/api/payment-cards/add",
           {
             cardNumber: cardDetails.cardNumber,
             expiryDate: cardDetails.expiryDate,

@@ -30,7 +30,7 @@ const Pay = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/payments/pay",
+        "https://loan-app-api-production.up.railway.app/api/payments/pay",
         { loanId: parseInt(loanId), amount: parseInt(amount) }, // Ensure integers
         {
           headers: {
