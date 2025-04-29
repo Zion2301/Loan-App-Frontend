@@ -76,8 +76,9 @@ const StyledWrapper = styled.div`
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
       border: 1px solid grey;
-      margin-left: 500px;
-      margin-top: 200px;     
+      display: flex;
+    align-self: center;
+    justify-self: center;     
   }
 
   ::placeholder {

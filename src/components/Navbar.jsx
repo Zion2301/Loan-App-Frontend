@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
 import Swal from "sweetalert2";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = () => {
   const [showModal, setShowModal] = useState(false);
@@ -58,6 +59,8 @@ const Navbar = () => {
             <button className="apply" onClick={() => setShowModal(true)}>Apply Now</button>
           )}
         </div>
+
+        <GiHamburgerMenu className="burger" onClick={() => setShowModal(true)} />
       </nav>
 
       {/* Show Modal if user clicks Apply Now */}

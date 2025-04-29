@@ -91,4 +91,21 @@
     gap: 15px;
     padding: 30px;
   }
+
+  @media screen and (max-width: 450px){
+       .modal-content {
+        flex-direction: column;
+        height: auto;
+        z-index: 3000;
+       }
+
+       .left-modal, .right-modal {
+        width: 100%;
+       }
+
+       .left-modal {
+        border-right: none;
+        border-bottom: 1px solid black;
+       }
+  }
   

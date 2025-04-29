@@ -134,3 +134,75 @@
     border-bottom: 1px solid grey;
     padding-bottom: 10px;
 }
+
+.burger {
+    display: none;
+    font-size: 30px;
+}
+
+@media screen and (max-width: 1110px){
+     .new-section {
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .inner-blue {
+        padding-left: 50px;
+        flex-direction: column;
+        position: relative;
+    }
+    
+    .calculate {
+        width: 90%;
+    }
+
+    .right-div {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 845px){
+    .new-section {
+        flex-direction: column;
+    }
+
+    .each-lil-div {
+        width: 100%;
+    }
+
+    .inner-blue {
+        padding: 20px;
+    }
+}
+
+@media screen and (max-width: 686px){
+     .how,.apply {
+        display: none;
+     }
+
+     .burger {
+        display: block;
+     }
+
+     .logo {
+        width: 100px;
+     }
+}
+
+@media screen and (max-width: 554px){
+    .need, .calculate {
+        padding: 20px;
+    }
+
+    .left-div {
+        z-index: 0;
+    }
+
+    .text {
+        display: none;
+    }
+
+    .logo {
+        width: 100px;
+    }
+}
